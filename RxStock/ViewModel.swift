@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 // Input
 protocol ViewModelInput {
     func refresh()
@@ -13,7 +15,9 @@ protocol ViewModelInput {
     func didClickIsFavoriteSwitch()
 }
 // Output
-protocol ViewModelOutput {}
+protocol ViewModelOutput {
+    var prices: Observable<[StockPrice]> { get }
+}
 
 protocol ViewModelType {
     var inputs: ViewModelInput { get }
@@ -21,6 +25,9 @@ protocol ViewModelType {
 }
 
 struct ViewModel: ViewModelType {
+    private let allPricesBehaviorRelay = BehaviorRelay<[StockPrice]>(value: [])
+    fileprivate let pricesBehaviorRelay = BehaviorRelay<[StockPrice]>(value: [])
+    
     var inputs: ViewModelInput { self }
     var outputs: ViewModelOutput { self }
 }
@@ -33,4 +40,8 @@ extension ViewModel: ViewModelInput {
     func didClickIsFavoriteSwitch() {}
 }
 
-extension ViewModel: ViewModelOutput {}
+extension ViewModel: ViewModelOutput {
+    var prices: Observable<[StockPrice]> {
+        pricesBehaviorRelay.asObservable()
+    }
+}

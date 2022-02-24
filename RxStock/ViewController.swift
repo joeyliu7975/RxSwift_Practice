@@ -59,9 +59,20 @@ class ViewController: UIViewController {
 // MARK: Internal
 extension ViewController {
     func bindUI() {
+        let searchText = searchTerm
+            .rx
+            .text
+            .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .throttle(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
+            .map { $0 }
+        
+        searchText.subscribe()
+            .disposed(by: disposeBag)
+        
         Observable.combineLatest(allPrices.asObservable(),
                                  favoriteSwitch.rx.isOn,
-                                 searchTerm.rx.text,
+                                 searchText,
         resultSelector: { currentPrices, onlyFavorites, search in
             return currentPrices.filter { price -> Bool in
                 return self.shouldDisplayPrice(price: price, onlyFavorite: onlyFavorites, search: search ?? "")
@@ -75,8 +86,6 @@ extension ViewController {
                 self.tableView.reloadData()
             })
             .disposed(by: disposeBag)
-        
-        
     }
     
     func shouldDisplayPrice(price: StockPrice, onlyFavorite: Bool, search: String) -> Bool {

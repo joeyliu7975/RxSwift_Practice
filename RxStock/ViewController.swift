@@ -94,8 +94,8 @@ extension ViewController {
         }
         
         return onlyFavorite == true ?
-        (price.symbol.contains(search) && price.isFavorite == onlyFavorite) :
-        price.symbol.contains(search)
+        (price.symbol.lowercased().contains(search.lowercased()) && price.isFavorite == onlyFavorite) :
+        price.symbol.lowercased().contains(search.lowercased())
     }
 }
 

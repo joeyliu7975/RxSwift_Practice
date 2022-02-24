@@ -11,6 +11,7 @@
 		0D3C5D1F27C74A3600FDB9D6 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D3C5D1E27C74A3600FDB9D6 /* TableViewCell.xib */; };
 		0D3F8D3D27C7630F0027D262 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3F8D3C27C7630F0027D262 /* Collection+Extension.swift */; };
 		0D3F8D4127C76A950027D262 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3F8D4027C76A950027D262 /* ViewModel.swift */; };
+		0D3F8D4827C77E220027D262 /* StockPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3F8D4727C77E220027D262 /* StockPrice.swift */; };
 		0DE2C79427C668AF001BD784 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE2C79327C668AF001BD784 /* AppDelegate.swift */; };
 		0DE2C79627C668AF001BD784 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE2C79527C668AF001BD784 /* SceneDelegate.swift */; };
 		0DE2C79827C668AF001BD784 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE2C79727C668AF001BD784 /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 		0D3C5D1E27C74A3600FDB9D6 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		0D3F8D3C27C7630F0027D262 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		0D3F8D4027C76A950027D262 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		0D3F8D4727C77E220027D262 /* StockPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPrice.swift; sourceTree = "<group>"; };
 		0DE2C79027C668AF001BD784 /* RxStock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxStock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE2C79327C668AF001BD784 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DE2C79527C668AF001BD784 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,51 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		0D3F8D4227C77D4F0027D262 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				0DE2C79727C668AF001BD784 /* ViewController.swift */,
+				0D3F8D4027C76A950027D262 /* ViewModel.swift */,
+				0D3F8D4727C77E220027D262 /* StockPrice.swift */,
+				0D3F8D4427C77DC70027D262 /* Cell */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		0D3F8D4327C77DA20027D262 /* Fundmental */ = {
+			isa = PBXGroup;
+			children = (
+				0DE2C79327C668AF001BD784 /* AppDelegate.swift */,
+				0DE2C79527C668AF001BD784 /* SceneDelegate.swift */,
+			);
+			path = Fundmental;
+			sourceTree = "<group>";
+		};
+		0D3F8D4427C77DC70027D262 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0D3C5D1C27C74A2E00FDB9D6 /* TableViewCell.swift */,
+				0D3C5D1E27C74A3600FDB9D6 /* TableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		0D3F8D4527C77DDC0027D262 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				0DE2C79927C668AF001BD784 /* Main.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		0D3F8D4627C77DEB0027D262 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0DE2C79E27C668B0001BD784 /* LaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		0DE2C78727C668AF001BD784 = {
 			isa = PBXGroup;
 			children = (
@@ -79,16 +126,12 @@
 		0DE2C79227C668AF001BD784 /* RxStock */ = {
 			isa = PBXGroup;
 			children = (
-				0DE2C79327C668AF001BD784 /* AppDelegate.swift */,
-				0DE2C79527C668AF001BD784 /* SceneDelegate.swift */,
-				0DE2C79727C668AF001BD784 /* ViewController.swift */,
-				0D3F8D4027C76A950027D262 /* ViewModel.swift */,
-				0D3C5D1C27C74A2E00FDB9D6 /* TableViewCell.swift */,
-				0D3C5D1E27C74A3600FDB9D6 /* TableViewCell.xib */,
+				0D3F8D4627C77DEB0027D262 /* LaunchScreen */,
+				0D3F8D4527C77DDC0027D262 /* Storyboard */,
+				0D3F8D4327C77DA20027D262 /* Fundmental */,
+				0D3F8D4227C77D4F0027D262 /* Home */,
 				0D3F8D3B27C762EB0027D262 /* Extension */,
-				0DE2C79927C668AF001BD784 /* Main.storyboard */,
 				0DE2C79C27C668B0001BD784 /* Assets.xcassets */,
-				0DE2C79E27C668B0001BD784 /* LaunchScreen.storyboard */,
 				0DE2C7A127C668B0001BD784 /* Info.plist */,
 			);
 			path = RxStock;
@@ -232,6 +275,7 @@
 				0DE2C79427C668AF001BD784 /* AppDelegate.swift in Sources */,
 				0DE2C79627C668AF001BD784 /* SceneDelegate.swift in Sources */,
 				0D3F8D4127C76A950027D262 /* ViewModel.swift in Sources */,
+				0D3F8D4827C77E220027D262 /* StockPrice.swift in Sources */,
 				0D3F8D3D27C7630F0027D262 /* Collection+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

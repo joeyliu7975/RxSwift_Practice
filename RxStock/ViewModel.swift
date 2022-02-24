@@ -7,7 +7,11 @@
 
 import Foundation
 // Input
-protocol ViewModelInput {}
+protocol ViewModelInput {
+    func refresh()
+    func search(keyword: String)
+    func didClickIsFavoriteSwitch()
+}
 // Output
 protocol ViewModelOutput {}
 
@@ -21,6 +25,12 @@ struct ViewModel: ViewModelType {
     var outputs: ViewModelOutput { self }
 }
 
-extension ViewModel: ViewModelInput {}
+extension ViewModel: ViewModelInput {
+    func refresh() {}
+    
+    func search(keyword: String) {}
+    
+    func didClickIsFavoriteSwitch() {}
+}
 
 extension ViewModel: ViewModelOutput {}

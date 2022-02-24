@@ -46,8 +46,6 @@ class ViewController: UIViewController {
         
         tableView.register(UINib(nibName: TableViewCell.reusedIdentifier, bundle: nil),
                            forCellReuseIdentifier: TableViewCell.reusedIdentifier)
-        tableView.delegate = self
-        tableView.dataSource = self
         
         allPrices.accept(allSymbols.enumerated().map({ index, symbol in
             StockPrice(symbol: symbol, isFavorite: index % 2 == 0)
@@ -82,9 +80,10 @@ extension ViewController {
             .disposed(by: disposeBag)
         
         prices.asObservable()
-            .subscribe(onNext: { price in
-                self.tableView.reloadData()
-            })
+            .bind(to: tableView.rx.items(cellIdentifier: TableViewCell.reusedIdentifier,
+                                         cellType: TableViewCell.self)) { (_, price, cell) in
+                cell.configure(price: price)
+            }
             .disposed(by: disposeBag)
     }
     
@@ -98,26 +97,3 @@ extension ViewController {
         price.symbol.lowercased().contains(search.lowercased())
     }
 }
-
-extension ViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        prices.value.count
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = cell as? TableViewCell,
-              let stockPrice = prices.value[safe: indexPath.row] else { return }
-        cell.configure(price: stockPrice)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.reusedIdentifier, for: indexPath) as? TableViewCell else {
-            fatalError("Cannot find \(TableViewCell.reusedIdentifier)")
-        }
-        return cell
-    }
-    
-    
-}
-
-extension ViewController: UITableViewDelegate {}

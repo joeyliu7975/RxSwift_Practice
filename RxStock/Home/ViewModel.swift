@@ -37,14 +37,24 @@ struct ViewModel: ViewModelType {
     init(allSymbols: [String] = ["RZW", "UDP", "MTT", "RMB", "TWD", "ENS", "GB", "ASY"]) {
         self.allSymbols = allSymbols
         
+        let shouldDisplayPrice: (StockPrice, Bool, String) -> Bool = { price, onlyFavorite, search in
+            guard !search.isEmpty else {
+                return onlyFavorite == true ? price.isFavorite == onlyFavorite : true
+            }
+            
+            return onlyFavorite == true ?
+            (price.symbol.lowercased().contains(search.lowercased()) && price.isFavorite == onlyFavorite) :
+            price.symbol.lowercased().contains(search.lowercased())
+        }
+        
         Observable.combineLatest(allPricesBehaviorRelay.asObservable(),
                                  isFavoriteBehaviorRelay.asObservable(),
                                  searchTextBehaviorReplay.asObservable(),
                 resultSelector: { currentPrices, onlyFavorites, search in
                     return currentPrices.filter { price -> Bool in
-                        return ViewModel.shouldDisplayPrice(price: price,
-                                                            onlyFavorite: onlyFavorites,
-                                                            search: search)
+                        return shouldDisplayPrice(price,
+                                                  onlyFavorites,
+                                                  search)
                     }
                 })
                     .bind(to: pricesBehaviorRelay)
@@ -53,19 +63,6 @@ struct ViewModel: ViewModelType {
     
     var inputs: ViewModelInput { self }
     var outputs: ViewModelOutput { self }
-}
-
-//MARK: Private function
-private extension ViewModel {
-    static func shouldDisplayPrice(price: StockPrice, onlyFavorite: Bool, search: String) -> Bool {
-        guard !search.isEmpty else {
-            return onlyFavorite == true ? price.isFavorite == onlyFavorite : true
-        }
-        
-        return onlyFavorite == true ?
-        (price.symbol.lowercased().contains(search.lowercased()) && price.isFavorite == onlyFavorite) :
-        price.symbol.lowercased().contains(search.lowercased())
-    }
 }
 
 extension ViewModel: ViewModelInput {
